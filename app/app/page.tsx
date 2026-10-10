@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import Navigation from "@/components/navigation";
 import { entrepriseDe } from "@/lib/espace";
 import { FONCTIONS, formaterDate, formaterEuros, joursAvant } from "@/lib/outils";
 import { creerClientServeur } from "@/lib/supabase/server";
@@ -72,6 +74,7 @@ export default async function Espace({
         Vos abonnements
       </h1>
       <p className="mt-2 text-base text-gris">Connecté : {user.email}</p>
+      <Navigation actif="/app" />
 
       {outils.length > 0 ? (
         <section className="mt-8 border-y border-trait py-6">
@@ -132,15 +135,23 @@ export default async function Espace({
                         }`}
                   </p>
                 ) : null}
-                <form action={supprimerOutil} className="mt-2">
-                  <input type="hidden" name="id" value={outil.id} />
-                  <button
-                    type="submit"
-                    className="min-h-12 text-base font-bold underline underline-offset-4"
+                <div className="mt-2 flex flex-wrap gap-x-6">
+                  <Link
+                    href={`/app/outils/${outil.id}`}
+                    className="flex min-h-12 items-center text-base font-bold underline underline-offset-4"
                   >
-                    Supprimer
-                  </button>
-                </form>
+                    Comptes sur cet outil
+                  </Link>
+                  <form action={supprimerOutil}>
+                    <input type="hidden" name="id" value={outil.id} />
+                    <button
+                      type="submit"
+                      className="min-h-12 text-base font-bold underline underline-offset-4"
+                    >
+                      Supprimer
+                    </button>
+                  </form>
+                </div>
               </li>
             );
           })}
