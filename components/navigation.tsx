@@ -4,11 +4,12 @@ const liens = [
   { href: "/app", libelle: "Abonnements" },
   { href: "/app/personnes", libelle: "Personnes" },
   { href: "/app/analyse", libelle: "Analyse" },
+  { href: "/app/renouvellements", libelle: "Échéances" },
 ];
 
 export default function Navigation({ actif }: { actif: string }) {
   return (
-    <nav aria-label="Mon espace" className="mt-6 grid grid-cols-3 border-2 border-encre text-center">
+    <nav aria-label="Mon espace" className="mt-6 grid grid-cols-4 border-2 border-encre text-center">
       {liens.map((lien) => {
         const courant = lien.href === actif;
         return (
