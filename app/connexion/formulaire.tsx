@@ -3,25 +3,43 @@
 import { useState, type FormEvent } from "react";
 import { creerClientNavigateur } from "@/lib/supabase/client";
 
+type Mode = "connexion" | "creation";
+
 type Etat =
   | { type: "repos" }
   | { type: "envoi" }
-  | { type: "code"; email: string; message?: string }
-  | { type: "verification"; email: string }
+  | { type: "confirmer"; email: string }
   | { type: "erreur"; message: string };
 
+const LONGUEUR_MIN = 8;
+const LONGUEUR_MAX = 72;
+
 export default function Formulaire({ messageInitial }: { messageInitial?: string }) {
+  const [mode, setMode] = useState<Mode>("connexion");
   const [etat, setEtat] = useState<Etat>(
     messageInitial ? { type: "erreur", message: messageInitial } : { type: "repos" },
   );
 
-  async function envoyerEmail(evenement: FormEvent<HTMLFormElement>) {
+  function changerMode(nouveau: Mode) {
+    setMode(nouveau);
+    setEtat({ type: "repos" });
+  }
+
+  async function envoyer(evenement: FormEvent<HTMLFormElement>) {
     evenement.preventDefault();
     const donnees = new FormData(evenement.currentTarget);
     const email = String(donnees.get("email") ?? "").trim();
+    const motDePasse = String(donnees.get("motdepasse") ?? "");
 
     if (email.length < 5 || email.length > 254 || !email.includes("@")) {
       setEtat({ type: "erreur", message: "Entrez une adresse e-mail valide." });
+      return;
+    }
+    if (motDePasse.length < LONGUEUR_MIN || motDePasse.length > LONGUEUR_MAX) {
+      setEtat({
+        type: "erreur",
+        message: `Le mot de passe doit contenir entre ${LONGUEUR_MIN} et ${LONGUEUR_MAX} caractères.`,
+      });
       return;
     }
 
@@ -35,123 +53,94 @@ export default function Formulaire({ messageInitial }: { messageInitial?: string
     }
 
     setEtat({ type: "envoi" });
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
-    });
 
+    if (mode === "connexion") {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password: motDePasse,
+      });
+      if (error) {
+        setEtat({
+          type: "erreur",
+          message:
+            error.status === 429
+              ? "Trop de tentatives. Attendez quelques minutes avant de réessayer."
+              : "E-mail ou mot de passe incorrect.",
+        });
+        return;
+      }
+      window.location.assign("/app");
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password: motDePasse,
+    });
     if (error) {
-      const limite = error.status === 429;
+      const dejaPris = /already|registered/i.test(error.message);
       setEtat({
         type: "erreur",
-        message: limite
-          ? "Trop de demandes en peu de temps. Attendez quelques minutes avant de réessayer."
-          : "L'e-mail n'a pas pu être envoyé. Vérifiez l'adresse et réessayez.",
+        message: dejaPris
+          ? "Un compte existe déjà avec cet e-mail. Connectez-vous."
+          : error.status === 429
+            ? "Trop de tentatives. Attendez quelques minutes avant de réessayer."
+            : "Le compte n'a pas pu être créé. Vérifiez vos informations et réessayez.",
       });
       return;
     }
 
-    setEtat({ type: "code", email });
+    if (data.session) {
+      // Rechargement complet : le serveur doit voir la session toute neuve.
+      window.location.assign("/app");
+      return;
+    }
+    setEtat({ type: "confirmer", email });
   }
 
-  async function verifierCode(evenement: FormEvent<HTMLFormElement>) {
-    evenement.preventDefault();
-    if (etat.type !== "code") return;
-    const email = etat.email;
-
-    const donnees = new FormData(evenement.currentTarget);
-    const code = String(donnees.get("code") ?? "").replace(/\D/g, "");
-
-    if (code.length < 6 || code.length > 10) {
-      setEtat({ type: "code", email, message: "Entrez le code à chiffres reçu par e-mail." });
-      return;
-    }
-
-    const supabase = creerClientNavigateur();
-    if (!supabase) {
-      setEtat({ type: "code", email, message: "La connexion n'est pas disponible pour le moment." });
-      return;
-    }
-
-    setEtat({ type: "verification", email });
-
-    let { error } = await supabase.auth.verifyOtp({ email, token: code, type: "email" });
-    if (error) {
-      // Première connexion : le code est de type « signup ».
-      const essai = await supabase.auth.verifyOtp({ email, token: code, type: "signup" });
-      error = essai.error;
-    }
-
-    if (error) {
-      setEtat({
-        type: "code",
-        email,
-        message: "Ce code est incorrect ou a expiré. Vérifiez-le ou demandez-en un nouveau.",
-      });
-      return;
-    }
-
-    // Rechargement complet : le serveur doit voir la session toute neuve.
-    window.location.assign("/app");
-  }
-
-  if (etat.type === "code" || etat.type === "verification") {
-    const enCours = etat.type === "verification";
-    const message = etat.type === "code" ? etat.message : undefined;
+  if (etat.type === "confirmer") {
     return (
-      <form onSubmit={verifierCode} className="mt-8" noValidate>
-        <div role="status" className="border-l-4 border-braise bg-white px-4 py-4">
-          <p className="text-lg font-bold">Regardez vos e-mails.</p>
-          <p className="mt-2 leading-relaxed text-gris">
-            Nous avons envoyé un e-mail à {etat.email}. Saisissez ci-dessous le
-            code qu&apos;il contient. Pensez à vérifier vos courriers
-            indésirables.
-          </p>
-        </div>
-
-        <label htmlFor="code" className="mt-6 block text-base font-bold">
-          Code reçu par e-mail
-        </label>
-        <input
-          id="code"
-          name="code"
-          type="text"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          maxLength={12}
-          required
-          placeholder="123456"
-          className="mt-2 min-h-14 w-full border-2 border-encre bg-white px-4 text-center text-2xl tracking-[0.3em]"
-        />
-
-        {message ? (
-          <p role="alert" className="mt-3 border-l-4 border-braise bg-white px-4 py-3 text-base">
-            {message}
-          </p>
-        ) : null}
-
-        <button
-          type="submit"
-          disabled={enCours}
-          className="mt-5 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce disabled:opacity-60"
-        >
-          {enCours ? "Vérification…" : "Me connecter"}
-        </button>
-
+      <div role="status" className="mt-8 border-l-4 border-braise bg-white px-4 py-4">
+        <p className="text-lg font-bold">Un dernier geste.</p>
+        <p className="mt-2 leading-relaxed text-gris">
+          Nous avons envoyé un e-mail de confirmation à {etat.email}. Ouvrez-le
+          pour activer votre compte, puis revenez vous connecter.
+        </p>
         <button
           type="button"
-          onClick={() => setEtat({ type: "repos" })}
+          onClick={() => changerMode("connexion")}
           className="mt-4 min-h-12 text-base font-bold underline underline-offset-4"
         >
-          Utiliser une autre adresse
+          Aller à la connexion
         </button>
-      </form>
+      </div>
     );
   }
 
+  const creation = mode === "creation";
+
   return (
-    <form onSubmit={envoyerEmail} className="mt-8" noValidate>
-      <label htmlFor="email" className="block text-base font-bold">
+    <form onSubmit={envoyer} className="mt-8" noValidate>
+      <div className="grid grid-cols-2 border-2 border-encre">
+        <button
+          type="button"
+          onClick={() => changerMode("connexion")}
+          aria-pressed={!creation}
+          className={`min-h-12 text-base font-bold ${!creation ? "bg-encre text-white" : "bg-white"}`}
+        >
+          Me connecter
+        </button>
+        <button
+          type="button"
+          onClick={() => changerMode("creation")}
+          aria-pressed={creation}
+          className={`min-h-12 text-base font-bold ${creation ? "bg-encre text-white" : "bg-white"}`}
+        >
+          Créer un compte
+        </button>
+      </div>
+
+      <label htmlFor="email" className="mt-6 block text-base font-bold">
         Votre adresse e-mail
       </label>
       <input
@@ -166,8 +155,27 @@ export default function Formulaire({ messageInitial }: { messageInitial?: string
         className="mt-2 min-h-14 w-full border-2 border-encre bg-white px-4 text-lg"
       />
 
+      <label htmlFor="motdepasse" className="mt-5 block text-base font-bold">
+        Mot de passe
+      </label>
+      <input
+        id="motdepasse"
+        name="motdepasse"
+        type="password"
+        autoComplete={creation ? "new-password" : "current-password"}
+        required
+        minLength={LONGUEUR_MIN}
+        maxLength={LONGUEUR_MAX}
+        className="mt-2 min-h-14 w-full border-2 border-encre bg-white px-4 text-lg"
+      />
+      {creation ? (
+        <p className="mt-2 text-sm text-gris">
+          Au moins {LONGUEUR_MIN} caractères.
+        </p>
+      ) : null}
+
       {etat.type === "erreur" ? (
-        <p role="alert" className="mt-3 border-l-4 border-braise bg-white px-4 py-3 text-base">
+        <p role="alert" className="mt-4 border-l-4 border-braise bg-white px-4 py-3 text-base">
           {etat.message}
         </p>
       ) : null}
@@ -175,13 +183,14 @@ export default function Formulaire({ messageInitial }: { messageInitial?: string
       <button
         type="submit"
         disabled={etat.type === "envoi"}
-        className="mt-5 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce disabled:opacity-60"
+        className="mt-6 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce disabled:opacity-60"
       >
-        {etat.type === "envoi" ? "Envoi en cours…" : "Recevoir mon code de connexion"}
+        {etat.type === "envoi"
+          ? "Un instant…"
+          : creation
+            ? "Créer mon compte"
+            : "Me connecter"}
       </button>
-      <p className="mt-3 text-sm text-gris">
-        Pas de mot de passe : un code à usage unique vous est envoyé par e-mail.
-      </p>
     </form>
   );
 }

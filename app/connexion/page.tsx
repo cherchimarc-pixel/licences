@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const messages: Record<string, string> = {
-  lien: "Ce lien n'a pas fonctionné : il a expiré, ou il a été ouvert dans un autre navigateur. Demandez un code ci-dessous.",
+  lien: "Ce lien n'a pas fonctionné. Connectez-vous avec votre e-mail et votre mot de passe.",
   configuration: "La connexion n'est pas encore configurée. Réessayez plus tard.",
 };
 
@@ -31,8 +31,7 @@ export default async function Connexion({
         Connexion
       </h1>
       <p className="mt-3 text-lg leading-relaxed text-gris">
-        Entrez votre e-mail : nous vous envoyons un code pour accéder à votre
-        espace.
+        Accédez à votre espace avec votre e-mail et un mot de passe.
       </p>
       <Formulaire messageInitial={messageInitial} />
     </main>
