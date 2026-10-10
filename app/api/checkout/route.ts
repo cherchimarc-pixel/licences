@@ -12,7 +12,7 @@ export async function POST(requete: Request) {
   const tarif = process.env.STRIPE_PRICE_ID;
 
   if (!cleSecrete || !tarif) {
-    return NextResponse.redirect(`${site}/commencer?paiement=echec`, 303);
+    return NextResponse.redirect(`${site}/offre?paiement=echec`, 303);
   }
 
   try {
@@ -22,15 +22,15 @@ export async function POST(requete: Request) {
       line_items: [{ price: tarif, quantity: 1 }],
       locale: "fr",
       success_url: `${site}/merci?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${site}/commencer?paiement=annule`,
+      cancel_url: `${site}/offre?paiement=annule`,
     });
 
     if (!session.url) {
-      return NextResponse.redirect(`${site}/commencer?paiement=echec`, 303);
+      return NextResponse.redirect(`${site}/offre?paiement=echec`, 303);
     }
     return NextResponse.redirect(session.url, 303);
   } catch (erreur) {
     console.error("Création de la session de paiement impossible", erreur);
-    return NextResponse.redirect(`${site}/commencer?paiement=echec`, 303);
+    return NextResponse.redirect(`${site}/offre?paiement=echec`, 303);
   }
 }
