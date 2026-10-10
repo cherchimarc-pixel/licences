@@ -17,7 +17,7 @@ export default function Navigation({ actif }: { actif: string }) {
             key={lien.href}
             href={lien.href}
             aria-current={courant ? "page" : undefined}
-            className={`flex min-h-12 items-center justify-center px-1 text-sm font-bold sm:text-base ${
+            className={`flex min-h-12 items-center justify-center px-0.5 text-[13px] font-bold sm:px-1 sm:text-base ${
               courant ? "bg-encre text-white" : "bg-white"
             }`}
           >
