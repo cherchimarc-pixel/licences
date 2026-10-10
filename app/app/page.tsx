@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import Navigation from "@/components/navigation";
-import { entrepriseDe } from "@/lib/espace";
+import { contexteEspace } from "@/lib/contexte";
 import { FONCTIONS, formaterDate, formaterEuros, joursAvant } from "@/lib/outils";
 import { creerClientServeur } from "@/lib/supabase/server";
 import { ajouterOutil, supprimerOutil } from "./actions";
@@ -33,16 +33,7 @@ export default async function Espace({
 }: {
   searchParams: Promise<{ [cle: string]: string | string[] | undefined }>;
 }) {
-  const supabase = await creerClientServeur();
-  if (!supabase) redirect("/connexion?erreur=configuration");
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/connexion");
-
-  const entreprise = await entrepriseDe(supabase, user);
-  if (!entreprise) redirect("/connexion?erreur=configuration");
+  const { supabase, user, entreprise } = await contexteEspace();
 
   const { erreur, ajoute } = await searchParams;
   const message = typeof erreur === "string" ? messages[erreur] : undefined;

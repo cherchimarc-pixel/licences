@@ -8,6 +8,7 @@ export const metadata = {
 
 const messages: Record<string, string> = {
   annule: "Le paiement a été annulé. Vous n'avez rien payé.",
+  requis: "",
   echec:
     "Le paiement n'a pas pu démarrer. Vous n'avez rien payé. Réessayez dans un instant.",
 };
@@ -36,8 +37,13 @@ export default async function Offre({
 }: {
   searchParams: Promise<{ [cle: string]: string | string[] | undefined }>;
 }) {
-  const { paiement } = await searchParams;
-  const message = typeof paiement === "string" ? messages[paiement] : undefined;
+  const { paiement, acces } = await searchParams;
+  const message =
+    acces === "abonnement"
+      ? "Aucun abonnement actif n'a été trouvé pour votre adresse e-mail. Si vous venez de payer, patientez une minute et rouvrez votre espace. Sinon, abonnez-vous ci-dessous avec la même adresse e-mail que votre compte."
+      : typeof paiement === "string"
+        ? messages[paiement]
+        : undefined;
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-10 pt-8 sm:px-8 sm:pt-14">
