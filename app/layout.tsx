@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
+import Pied from "@/components/pied";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -52,7 +53,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
-      <body className="min-h-dvh">{children}</body>
+      <body className="min-h-dvh">
+        {children}
+        <Pied />
+      </body>
     </html>
   );
 }
