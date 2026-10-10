@@ -119,9 +119,13 @@ export default function Quiz() {
         <div className="mt-8">
           <Link
             href="/offre"
-            className="flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce sm:w-auto sm:min-w-72"
+            className={
+              resultat.rentable
+                ? "flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce sm:w-auto sm:min-w-72"
+                : "flex min-h-14 w-full items-center justify-center border-2 border-encre bg-white px-6 text-lg font-bold transition-colors sm:w-auto sm:min-w-72"
+            }
           >
-            Voir comment le récupérer
+            {resultat.rentable ? "Voir comment le récupérer" : "Voir l'offre quand même"}
           </Link>
           <button
             type="button"
