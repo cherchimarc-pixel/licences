@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BoutonEnvoi from "@/components/bouton-envoi";
 import { redirect } from "next/navigation";
 import Navigation from "@/components/navigation";
 import { contexteEspace } from "@/lib/contexte";
@@ -209,12 +210,7 @@ export default async function Espace({
           </label>
           <input id="date_renouvellement" name="date_renouvellement" type="date" className={`${champ} block min-w-0 max-w-full appearance-none text-left`} />
 
-          <button
-            type="submit"
-            className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
-          >
-            Ajouter cet outil
-          </button>
+          <BoutonEnvoi className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce">Ajouter cet outil</BoutonEnvoi>
         </form>
       </details>
 

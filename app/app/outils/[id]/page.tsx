@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BoutonEnvoi from "@/components/bouton-envoi";
 import { notFound } from "next/navigation";
 import Navigation from "@/components/navigation";
 import { contexteEspace } from "@/lib/contexte";
@@ -158,12 +159,7 @@ export default async function Outil({
             className={`${champ} block min-w-0 max-w-full appearance-none text-left`}
           />
 
-          <button
-            type="submit"
-            className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
-          >
-            Enregistrer les modifications
-          </button>
+          <BoutonEnvoi className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce">Enregistrer les modifications</BoutonEnvoi>
         </form>
       </details>
 
@@ -247,12 +243,7 @@ export default async function Outil({
               comptes qui ne servent plus.
             </p>
 
-            <button
-              type="submit"
-              className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
-            >
-              Ajouter ce compte
-            </button>
+            <BoutonEnvoi className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce">Ajouter ce compte</BoutonEnvoi>
           </form>
         </details>
       )}

@@ -1,4 +1,5 @@
 import Navigation from "@/components/navigation";
+import BoutonEnvoi from "@/components/bouton-envoi";
 import { contexteEspace } from "@/lib/contexte";
 import { formaterDate } from "@/lib/outils";
 import { ajouterPersonne, marquerParti, supprimerPersonne } from "./actions";
@@ -122,12 +123,7 @@ export default async function Personnes({
           </label>
           <input id="email" name="email" type="email" inputMode="email" maxLength={254} placeholder="julie@entreprise.fr" className={champ} />
 
-          <button
-            type="submit"
-            className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
-          >
-            Ajouter cette personne
-          </button>
+          <BoutonEnvoi className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce">Ajouter cette personne</BoutonEnvoi>
         </form>
       </details>
     </main>
