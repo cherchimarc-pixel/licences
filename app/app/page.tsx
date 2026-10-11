@@ -20,6 +20,11 @@ const messages: Record<string, string> = {
   enregistrement: "L'opération n'a pas pu être enregistrée. Réessayez dans un instant.",
 };
 
+const messagesPortail: Record<string, string> = {
+  erreur: "La page de gestion de l'abonnement n'a pas pu s'ouvrir. Réessayez dans un instant.",
+  introuvable: "Nous n'avons pas trouvé d'abonnement lié à votre adresse e-mail.",
+};
+
 type Outil = {
   id: string;
   nom: string;
@@ -35,8 +40,13 @@ export default async function Espace({
 }) {
   const { supabase, user, entreprise } = await contexteEspace();
 
-  const { erreur, ajoute } = await searchParams;
-  const message = typeof erreur === "string" ? messages[erreur] : undefined;
+  const { erreur, ajoute, portail } = await searchParams;
+  const message =
+    typeof erreur === "string"
+      ? messages[erreur]
+      : typeof portail === "string"
+        ? messagesPortail[portail]
+        : undefined;
 
   const { data } = await supabase
     .from("outils")
@@ -208,11 +218,18 @@ export default async function Espace({
         </form>
       </details>
 
-      <form action={deconnexion} className="mt-10">
-        <button type="submit" className="min-h-12 text-base font-bold underline underline-offset-4">
-          Se déconnecter
-        </button>
-      </form>
+      <div className="mt-10 flex flex-wrap gap-x-6 border-t border-trait pt-4">
+        <form action="/api/portail" method="POST">
+          <button type="submit" className="min-h-12 text-base font-bold underline underline-offset-4">
+            Gérer mon abonnement
+          </button>
+        </form>
+        <form action={deconnexion}>
+          <button type="submit" className="min-h-12 text-base font-bold underline underline-offset-4">
+            Se déconnecter
+          </button>
+        </form>
+      </div>
     </main>
   );
 }
