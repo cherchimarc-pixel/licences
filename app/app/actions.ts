@@ -2,27 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { entrepriseDe } from "@/lib/espace";
+import { contexteEspace } from "@/lib/contexte";
 import { estUneFonction } from "@/lib/outils";
-import { creerClientServeur } from "@/lib/supabase/server";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const DATE_ISO = /^\d{4}-\d{2}-\d{2}$/;
 
-async function contexte() {
-  const supabase = await creerClientServeur();
-  if (!supabase) redirect("/connexion?erreur=configuration");
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/connexion");
-  const entreprise = await entrepriseDe(supabase, user);
-  if (!entreprise) redirect("/app?erreur=enregistrement");
-  return { supabase, entreprise };
-}
-
 export async function ajouterOutil(formData: FormData) {
-  const { supabase, entreprise } = await contexte();
+  const { supabase, entreprise } = await contexteEspace();
 
   const nom = String(formData.get("nom") ?? "").trim();
   const fonction = String(formData.get("fonction") ?? "");
@@ -62,7 +49,7 @@ export async function ajouterOutil(formData: FormData) {
 }
 
 export async function supprimerOutil(formData: FormData) {
-  const { supabase, entreprise } = await contexte();
+  const { supabase, entreprise } = await contexteEspace();
 
   const id = String(formData.get("id") ?? "");
   if (!UUID.test(id)) redirect("/app?erreur=enregistrement");

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navigation from "@/components/navigation";
 import { contexteEspace } from "@/lib/contexte";
-import { UUID_REGEX, formaterDate, formaterEuros } from "@/lib/outils";
-import { ajouterCompte, supprimerCompte } from "./actions";
+import { FONCTIONS, UUID_REGEX, formaterDate, formaterEuros } from "@/lib/outils";
+import { ajouterCompte, modifierOutil, supprimerCompte } from "./actions";
 
 export const metadata = {
   title: "Comptes d'un outil — Licences",
@@ -11,6 +11,10 @@ export const metadata = {
 };
 
 const messages: Record<string, string> = {
+  nom: "Donnez un nom à l'outil (120 caractères au maximum).",
+  fonction: "Choisissez une fonction dans la liste.",
+  periode: "Indiquez si le montant est par mois ou par an.",
+  montant: "Entrez un montant valide, en euros (par exemple 12,50).",
   personne: "Choisissez une personne dans la liste.",
   date: "La date n'est pas valide.",
   doublon: "Cette personne a déjà un compte sur cet outil.",
@@ -31,12 +35,12 @@ export default async function Outil({
   if (!UUID_REGEX.test(id)) notFound();
 
   const { supabase, entreprise } = await contexteEspace();
-  const { erreur, ajoute } = await searchParams;
+  const { erreur, ajoute, modifie } = await searchParams;
   const message = typeof erreur === "string" ? messages[erreur] : undefined;
 
   const { data: outil } = await supabase
     .from("outils")
-    .select("id, nom, fonction, cout_annuel")
+    .select("id, nom, fonction, cout_annuel, date_renouvellement")
     .eq("id", id)
     .eq("entreprise_id", entreprise.id)
     .maybeSingle();
@@ -80,11 +84,88 @@ export default async function Outil({
           Compte ajouté.
         </p>
       ) : null}
+      {modifie ? (
+        <p role="status" className="mt-6 border-l-4 border-encre bg-white px-4 py-3 text-base">
+          Outil modifié.
+        </p>
+      ) : null}
       {message ? (
         <p role="alert" className="mt-6 border-l-4 border-braise bg-white px-4 py-3 text-base">
           {message}
         </p>
       ) : null}
+
+      <details className="mt-6 border-2 border-encre bg-white">
+        <summary className="flex min-h-14 cursor-pointer items-center px-5 text-lg font-bold">
+          Modifier cet outil
+        </summary>
+        <form action={modifierOutil} className="border-t-2 border-encre px-5 pb-6 pt-2">
+          <input type="hidden" name="id" value={outil.id} />
+
+          <label htmlFor="nom" className="mt-4 block text-base font-bold">
+            Nom de l&apos;outil
+          </label>
+          <input id="nom" name="nom" type="text" required maxLength={120} defaultValue={outil.nom} className={champ} />
+
+          <label htmlFor="fonction" className="mt-5 block text-base font-bold">
+            À quoi il sert
+          </label>
+          <select id="fonction" name="fonction" required defaultValue={outil.fonction} className={champ}>
+            {FONCTIONS.map((f) => (
+              <option key={f} value={f}>
+                {f}
+              </option>
+            ))}
+          </select>
+
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="montant" className="block text-base font-bold">
+                Montant (€)
+              </label>
+              <input
+                id="montant"
+                name="montant"
+                type="text"
+                inputMode="decimal"
+                required
+                defaultValue={String(coutAnnuel).replace(".", ",")}
+                className={champ}
+              />
+            </div>
+            <div>
+              <label htmlFor="periode" className="block text-base font-bold">
+                Payé
+              </label>
+              <select id="periode" name="periode" required defaultValue="an" className={champ}>
+                <option value="mois">par mois</option>
+                <option value="an">par an</option>
+              </select>
+            </div>
+          </div>
+          <p className="mt-2 text-sm text-gris">
+            Le montant affiché est le total par an. Le prix pour toute l&apos;entreprise, pas par personne.
+          </p>
+
+          <label htmlFor="date_renouvellement" className="mt-5 block text-base font-bold">
+            Prochain renouvellement (facultatif)
+          </label>
+          <input
+            id="date_renouvellement"
+            name="date_renouvellement"
+            type="date"
+            defaultValue={outil.date_renouvellement ?? ""}
+            className={`${champ} block min-w-0 max-w-full appearance-none text-left`}
+          />
+
+          <button
+            type="submit"
+            className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
+          >
+            Enregistrer les modifications
+          </button>
+        </form>
+      </details>
 
       <h2 className="mt-8 font-titre text-2xl font-bold leading-tight">
         Qui a un compte sur cet outil
