@@ -1,10 +1,26 @@
 import Stripe from "stripe";
+import { creerClientAdmin } from "@/lib/supabase/admin";
 
 // Vrai si un client Stripe portant cette adresse e-mail a un abonnement en cours.
 // Choix volontaire : en cas de doute ou d'erreur, l'accès est refusé (jamais ouvert par défaut).
 export async function aUnAbonnementActif(email: string | undefined): Promise<boolean> {
+  if (!email) return false;
+
+  // 1. La base (alimentée par le webhook Stripe) : rapide.
+  const admin = creerClientAdmin();
+  if (admin) {
+    const { data } = await admin
+      .from("abonnements")
+      .select("id")
+      .eq("email_client", email.trim().toLowerCase())
+      .eq("statut", "actif")
+      .limit(1);
+    if ((data ?? []).length > 0) return true;
+  }
+
+  // 2. Secours : interroger Stripe directement (anciens abonnements, webhook en retard).
   const cleSecrete = process.env.STRIPE_SECRET_KEY;
-  if (!cleSecrete || !email) return false;
+  if (!cleSecrete) return false;
 
   try {
     const stripe = new Stripe(cleSecrete);
