@@ -14,8 +14,8 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f7f4ee",
-          color: "#14213d",
+          background: "#2538f5",
+          color: "#ffffff",
           padding: "72px",
         }}
       >
@@ -24,7 +24,7 @@ export default function Image() {
             fontSize: 34,
             fontWeight: 700,
             letterSpacing: 6,
-            color: "#e4572e",
+            color: "#ffe14d",
             textTransform: "uppercase",
           }}
         >
@@ -40,7 +40,7 @@ export default function Image() {
         >
           Vous payez des logiciels que personne n&apos;utilise.
         </div>
-        <div style={{ fontSize: 34, color: "#5b6173", display: "flex" }}>
+        <div style={{ fontSize: 34, color: "#dfe3ff", display: "flex" }}>
           Comptes inutilisés, doublons, renouvellements.
         </div>
       </div>

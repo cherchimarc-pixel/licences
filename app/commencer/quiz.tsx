@@ -81,7 +81,7 @@ export default function Quiz() {
 
     return (
       <section aria-live="polite" className="mt-6">
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">
           Votre estimation
         </p>
 
@@ -121,7 +121,7 @@ export default function Quiz() {
             href="/offre"
             className={
               resultat.rentable
-                ? "flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce sm:w-auto sm:min-w-72"
+                ? "flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce sm:w-auto sm:min-w-72"
                 : "flex min-h-14 w-full items-center justify-center border-2 border-encre bg-white px-6 text-lg font-bold transition-colors sm:w-auto sm:min-w-72"
             }
           >
@@ -166,7 +166,7 @@ export default function Quiz() {
         className="h-2 w-full bg-trait"
       >
         <div
-          className="h-2 bg-braise transition-all"
+          className="h-2 bg-bleu transition-all"
           style={{ width: `${Math.max(progression, 8)}%` }}
         />
       </div>

@@ -9,7 +9,7 @@ export default function PageLegale({
 }) {
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-      <Link href="/" className="text-sm font-bold uppercase tracking-[0.18em] text-braise">
+      <Link href="/" className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">
         Licences
       </Link>
       <h1 className="mt-5 font-titre text-4xl font-black leading-tight">{titre}</h1>
@@ -22,5 +22,5 @@ export default function PageLegale({
 
 /** Marque visiblement une information encore à renseigner. */
 export function AComplete({ children }: { children: React.ReactNode }) {
-  return <mark className="bg-braise/20 px-1 font-bold">[À COMPLÉTER : {children}]</mark>;
+  return <mark className="bg-surligneur px-1 font-bold">[À COMPLÉTER : {children}]</mark>;
 }

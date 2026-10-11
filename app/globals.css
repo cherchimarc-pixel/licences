@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-encre: #14213d;
-  --color-braise: #e4572e;
-  --color-braise-fonce: #c9431d;
-  --color-papier: #f7f4ee;
-  --color-trait: #d9d3c7;
-  --color-gris: #5b6173;
+  --color-encre: #0b1437;
+  --color-bleu: #2538f5;
+  --color-bleu-fonce: #1a29c9;
+  --color-surligneur: #ffe14d;
+  --color-braise: #d9381e;
+  --color-braise-fonce: #b82c14;
+  --color-papier: #f3f5fb;
+  --color-trait: #d6dcec;
+  --color-gris: #4f5a75;
 
-  --font-titre: var(--font-fraunces), Georgia, serif;
+  --font-titre: var(--font-bricolage), "Helvetica Neue", Arial, sans-serif;
   --font-texte: var(--font-dm-sans), system-ui, sans-serif;
 }
 
@@ -27,4 +30,25 @@ a:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--color-braise);
   outline-offset: 3px;
+}
+
+/* Ligne surlignée au stylo : le fond jaune se déploie une fois, à l'arrivée sur la page. */
+.surligne {
+  background-image: linear-gradient(var(--color-surligneur), var(--color-surligneur));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: surligner 0.8s ease-out forwards;
+}
+
+@keyframes surligner {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surligne {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }

@@ -14,7 +14,7 @@ export default function Erreur({ reset }: { reset: () => void }) {
       <button
         type="button"
         onClick={reset}
-        className="mt-8 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white sm:w-auto sm:min-w-72"
+        className="mt-8 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white sm:w-auto sm:min-w-72"
       >
         Réessayer
       </button>

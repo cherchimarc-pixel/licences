@@ -47,7 +47,7 @@ export default async function Offre({
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-10 pt-8 sm:px-8 sm:pt-14">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">Licences</p>
+      <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">Licences</p>
       <h1 className="mt-5 font-titre text-4xl font-black leading-tight">
         Une seule offre, tout compris.
       </h1>
@@ -81,7 +81,7 @@ export default async function Offre({
       <form action="/api/checkout" method="POST" className="mt-8">
         <button
           type="submit"
-          className="flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce"
+          className="flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
         >
           Payer 79&nbsp;€ par mois
         </button>

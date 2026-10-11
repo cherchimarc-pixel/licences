@@ -62,7 +62,7 @@ export default async function Outil({
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">Licences</p>
+      <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">Licences</p>
       <Navigation actif="/app" />
 
       <Link href="/app" className="mt-6 inline-flex min-h-12 items-center text-base font-bold underline underline-offset-4">
@@ -168,7 +168,7 @@ export default async function Outil({
 
             <button
               type="submit"
-              className="mt-6 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce"
+              className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
             >
               Ajouter ce compte
             </button>

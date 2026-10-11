@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import Pied from "@/components/pied";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["700", "900"],
-  variable: "--font-fraunces",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
@@ -52,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html lang="fr" className={`${bricolage.variable} ${dmSans.variable}`}>
       <body className="min-h-dvh">
         {children}
         <Pied />

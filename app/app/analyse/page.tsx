@@ -39,7 +39,7 @@ export default async function Analyse() {
   if (outils.length === 0) {
     return (
       <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">Licences</p>
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">Licences</p>
         <h1 className="mt-5 font-titre text-4xl font-black leading-tight">Analyse</h1>
         <Navigation actif="/app/analyse" />
         <section className="mt-8 border-2 border-dashed border-encre bg-white px-5 py-8">
@@ -50,7 +50,7 @@ export default async function Analyse() {
             Ajoutez d&apos;abord vos outils dans l&apos;onglet Abonnements. Les
             comptes inutilisés et les doublons apparaîtront ici.
           </p>
-          <Link href="/app" className="mt-5 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white">
+          <Link href="/app" className="mt-5 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white">
             Ajouter un outil
           </Link>
         </section>
@@ -60,7 +60,7 @@ export default async function Analyse() {
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">Licences</p>
+      <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">Licences</p>
       <h1 className="mt-5 font-titre text-4xl font-black leading-tight">Analyse</h1>
       <Navigation actif="/app/analyse" />
 

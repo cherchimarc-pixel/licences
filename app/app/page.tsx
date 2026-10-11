@@ -68,7 +68,7 @@ export default async function Espace({
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">
+      <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">
         Licences
       </p>
       <h1 className="mt-5 font-titre text-4xl font-black leading-tight">
@@ -211,7 +211,7 @@ export default async function Espace({
 
           <button
             type="submit"
-            className="mt-6 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce"
+            className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
           >
             Ajouter cet outil
           </button>

@@ -32,7 +32,7 @@ export default async function Renouvellements() {
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-12 pt-8 sm:px-8 sm:pt-14">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-braise">Licences</p>
+      <p className="text-sm font-bold uppercase tracking-[0.18em] text-bleu">Licences</p>
       <h1 className="mt-5 font-titre text-4xl font-black leading-tight">Échéances</h1>
       <Navigation actif="/app/renouvellements" />
 

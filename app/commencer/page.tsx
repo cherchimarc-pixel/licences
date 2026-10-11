@@ -12,7 +12,7 @@ export default function Commencer() {
     <main className="mx-auto min-h-dvh max-w-xl px-5 pb-10 pt-8 sm:px-8 sm:pt-14">
       <Link
         href="/"
-        className="text-sm font-bold uppercase tracking-[0.18em] text-braise"
+        className="text-sm font-bold uppercase tracking-[0.18em] text-bleu"
       >
         Licences
       </Link>

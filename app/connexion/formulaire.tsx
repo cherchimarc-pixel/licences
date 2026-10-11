@@ -183,7 +183,7 @@ export default function Formulaire({ messageInitial }: { messageInitial?: string
       <button
         type="submit"
         disabled={etat.type === "envoi"}
-        className="mt-6 flex min-h-14 w-full items-center justify-center bg-braise px-6 text-lg font-bold text-white transition-colors active:bg-braise-fonce disabled:opacity-60"
+        className="mt-6 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce disabled:opacity-60"
       >
         {etat.type === "envoi"
           ? "Un instant…"
