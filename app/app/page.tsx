@@ -3,7 +3,7 @@ import BoutonEnvoi from "@/components/bouton-envoi";
 import { redirect } from "next/navigation";
 import Navigation from "@/components/navigation";
 import { contexteEspace } from "@/lib/contexte";
-import { FONCTIONS, formaterDate, formaterEuros, joursAvant } from "@/lib/outils";
+import { FONCTIONS, estUneFonction, formaterDate, formaterEuros, joursAvant } from "@/lib/outils";
 import { creerClientServeur } from "@/lib/supabase/server";
 import { ajouterOutil, supprimerOutil } from "./actions";
 
@@ -26,6 +26,21 @@ const messagesPortail: Record<string, string> = {
   introuvable: "Nous n'avons pas trouvé d'abonnement lié à votre adresse e-mail.",
 };
 
+const suggestions = [
+  { nom: "Slack", fonction: "Messagerie" },
+  { nom: "Google Workspace", fonction: "Messagerie" },
+  { nom: "Microsoft 365", fonction: "Messagerie" },
+  { nom: "Zoom", fonction: "Visioconférence" },
+  { nom: "Canva", fonction: "Design" },
+  { nom: "Notion", fonction: "Gestion de projet" },
+  { nom: "Asana", fonction: "Gestion de projet" },
+  { nom: "Dropbox", fonction: "Stockage de fichiers" },
+  { nom: "DocuSign", fonction: "Signature électronique" },
+  { nom: "HubSpot", fonction: "Relation client (CRM)" },
+  { nom: "Pennylane", fonction: "Comptabilité" },
+  { nom: "Mailchimp", fonction: "Marketing" },
+];
+
 type Outil = {
   id: string;
   nom: string;
@@ -41,7 +56,10 @@ export default async function Espace({
 }) {
   const { supabase, user, entreprise } = await contexteEspace();
 
-  const { erreur, ajoute, portail } = await searchParams;
+  const { erreur, ajoute, portail, nom: nomBrut, fonction: fonctionBrute } = await searchParams;
+  const nomPre = typeof nomBrut === "string" ? nomBrut.slice(0, 120) : "";
+  const fonctionPre = typeof fonctionBrute === "string" && estUneFonction(fonctionBrute) ? fonctionBrute : "";
+  const preRempli = nomPre !== "";
   const message =
     typeof erreur === "string"
       ? messages[erreur]
@@ -110,6 +128,35 @@ export default async function Espace({
             entreprise paie, avec son prix. Le total par an apparaît dès le
             premier.
           </p>
+
+          <ol className="mt-6 space-y-3 text-base leading-relaxed">
+            <li>
+              <span className="font-bold">1. Ajoutez vos outils</span> avec leur prix. Vous pouvez
+              retrouver les montants sur vos relevés bancaires ou vos factures.
+            </li>
+            <li>
+              <span className="font-bold">2. Ajoutez vos collaborateurs</span> dans l&apos;onglet
+              Personnes, puis leurs comptes sur chaque outil.
+            </li>
+            <li>
+              <span className="font-bold">3. Ouvrez l&apos;onglet Analyse</span> pour voir les comptes
+              inutilisés et les doublons.
+            </li>
+          </ol>
+
+          <h3 className="mt-8 text-base font-bold">Un outil courant ? Choisissez-le, il se pré-remplit.</h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {suggestions.map((sg) => (
+              <li key={sg.nom}>
+                <Link
+                  href={`/app?nom=${encodeURIComponent(sg.nom)}&fonction=${encodeURIComponent(sg.fonction)}#ajout`}
+                  className="flex min-h-12 items-center border-2 border-encre bg-papier px-3 text-base font-bold transition-colors active:bg-surligneur"
+                >
+                  {sg.nom}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       ) : (
         <ul className="mt-6 divide-y divide-trait border-y border-trait">
@@ -160,7 +207,7 @@ export default async function Espace({
         </ul>
       )}
 
-      <details open={outils.length === 0 || undefined} className="mt-8 border-2 border-encre bg-white">
+      <details id="ajout" open={outils.length === 0 || preRempli || undefined} className="mt-8 border-2 border-encre bg-white">
         <summary className="flex min-h-14 cursor-pointer items-center px-5 text-lg font-bold">
           Ajouter un outil
         </summary>
@@ -168,12 +215,12 @@ export default async function Espace({
           <label htmlFor="nom" className="mt-4 block text-base font-bold">
             Nom de l&apos;outil
           </label>
-          <input id="nom" name="nom" type="text" required maxLength={120} placeholder="Par exemple : Slack" className={champ} />
+          <input id="nom" name="nom" type="text" required maxLength={120} defaultValue={nomPre} placeholder="Par exemple : Slack" className={champ} />
 
           <label htmlFor="fonction" className="mt-5 block text-base font-bold">
             À quoi il sert
           </label>
-          <select id="fonction" name="fonction" required defaultValue="" className={champ}>
+          <select id="fonction" name="fonction" required defaultValue={fonctionPre} className={champ}>
             <option value="" disabled>
               Choisir…
             </option>

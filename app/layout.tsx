@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
 import Pied from "@/components/pied";
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body className="min-h-dvh">
         {children}
         <Pied />
+        <Analytics />
       </body>
     </html>
   );

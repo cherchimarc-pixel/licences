@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Demo from "@/components/demo";
+import Logo from "@/components/logo";
 
 const lignes = [
   { nom: "Slack", detail: "Messagerie · le salarié est parti", montant: "960 €", inutile: true, delai: "0.7s" },
@@ -46,7 +48,7 @@ export default function Accueil() {
     <div>
       <header className="bg-bleu text-white">
         <div className="mx-auto max-w-5xl px-5 pb-14 pt-6 sm:px-8 md:pb-20">
-          <p className="font-titre text-xl font-extrabold tracking-tight">Licences</p>
+          <Logo clair />
 
           <div className="mt-10 md:mt-16 md:grid md:grid-cols-[1.05fr_1fr] md:items-center md:gap-14">
             <div>
@@ -68,6 +70,9 @@ export default function Accueil() {
               <p className="mt-3 text-sm text-white/80">
                 Trois questions, deux minutes. Gratuit, sans carte bancaire.
               </p>
+              <div className="mt-4">
+                <Demo />
+              </div>
             </div>
 
             <section

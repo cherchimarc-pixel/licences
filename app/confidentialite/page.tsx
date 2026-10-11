@@ -45,7 +45,10 @@ export default function Confidentialite() {
       <h2>Cookies et mesure d&apos;audience</h2>
       <p>
         Nous utilisons uniquement le cookie nécessaire à la connexion. Aucun
-        cookie publicitaire.
+        cookie publicitaire. Nous mesurons le nombre de visites avec Vercel
+        Web Analytics, un outil sans cookie qui ne vous suit pas d&apos;un site
+        à l&apos;autre et ne conserve pas d&apos;information permettant de vous
+        identifier.
       </p>
     </PageLegale>
   );
