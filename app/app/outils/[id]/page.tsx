@@ -160,7 +160,7 @@ export default async function Outil({
             <label htmlFor="derniere_utilisation" className="mt-5 block text-base font-bold">
               Dernière utilisation (facultatif)
             </label>
-            <input id="derniere_utilisation" name="derniere_utilisation" type="date" className={champ} />
+            <input id="derniere_utilisation" name="derniere_utilisation" type="date" className={`${champ} block min-w-0 max-w-full appearance-none text-left`} />
             <p className="mt-2 text-sm text-gris">
               Si vous la connaissez : c&apos;est ce qui permet de repérer les
               comptes qui ne servent plus.

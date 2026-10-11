@@ -207,7 +207,7 @@ export default async function Espace({
           <label htmlFor="date_renouvellement" className="mt-5 block text-base font-bold">
             Prochain renouvellement (facultatif)
           </label>
-          <input id="date_renouvellement" name="date_renouvellement" type="date" className={champ} />
+          <input id="date_renouvellement" name="date_renouvellement" type="date" className={`${champ} block min-w-0 max-w-full appearance-none text-left`} />
 
           <button
             type="submit"
