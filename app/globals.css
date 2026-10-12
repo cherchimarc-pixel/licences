@@ -53,6 +53,25 @@ button:focus-visible {
   }
 }
 
+/* Bandeau défilant de noms d'outils : le contenu est écrit deux fois, on glisse d'une moitié. */
+.defile {
+  display: flex;
+  width: max-content;
+  animation: defiler 38s linear infinite;
+}
+
+@keyframes defiler {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .defile {
+    animation: none;
+  }
+}
+
 /* Apparition progressive des lignes de la démo. */
 .apparait {
   opacity: 0;
