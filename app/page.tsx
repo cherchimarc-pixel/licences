@@ -87,7 +87,7 @@ export default function Accueil() {
 
           <div className="mt-12 md:mt-20 md:grid md:grid-cols-[1.15fr_1fr] md:items-center md:gap-12">
             <div>
-              <h1 className="font-titre text-[3.1rem] font-extrabold leading-[0.95] tracking-tighter sm:text-7xl lg:text-[5.5rem]">
+              <h1 className="font-titre text-[3.1rem] font-extrabold leading-[1.22] tracking-tighter sm:text-7xl lg:text-[5.5rem]">
                 Vous payez des logiciels{" "}
                 <span className="surligne box-decoration-clone px-2 text-encre" style={{ animationDelay: "0.4s" }}>
                   que personne n&apos;utilise.
