@@ -175,7 +175,7 @@ export default function Demo() {
 
             <div className="mt-2 flex gap-1.5" aria-hidden="true">
               {scenes.map((_, i) => (
-                <span key={i} className={`h-1.5 flex-1 ${i <= scene ? "bg-bleu" : "bg-trait"}`} />
+                <span key={i} className={`h-1.5 flex-1 ${i <= scene ? "bg-rose" : "bg-trait"}`} />
               ))}
             </div>
 
@@ -220,7 +220,7 @@ export default function Demo() {
             {derniere ? (
               <Link
                 href="/commencer"
-                className="mt-4 flex min-h-14 w-full items-center justify-center bg-bleu px-6 text-lg font-bold text-white transition-colors active:bg-bleu-fonce"
+                className="mt-4 flex min-h-14 w-full items-center justify-center bg-gradient-to-r from-rose to-violet px-6 text-lg font-bold text-white transition-transform active:scale-[0.98]"
               >
                 Estimer ce que vous perdez
               </Link>

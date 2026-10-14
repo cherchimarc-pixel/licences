@@ -152,11 +152,11 @@ export function Ciel() {
 // Planète lointaine : surface texturée par du bruit, côté nuit sombre, liseré d'atmosphère.
 export function Planete() {
   return (
-    <svg viewBox="0 0 400 400" className="h-full w-full drop-shadow-[0_0_36px_rgba(90,130,255,0.4)]">
+    <svg viewBox="0 0 400 400" className="h-full w-full drop-shadow-[0_0_36px_rgba(150,100,255,0.4)]">
       <defs>
         <radialGradient id="planete-base" cx="30%" cy="26%" r="85%">
-          <stop offset="0" stopColor="#4a6be0" />
-          <stop offset="0.4" stopColor="#1a2780" />
+          <stop offset="0" stopColor="#8a6bf2" />
+          <stop offset="0.4" stopColor="#35208c" />
           <stop offset="1" stopColor="#03051a" />
         </radialGradient>
         <radialGradient id="planete-ombre" cx="27%" cy="24%" r="90%">
@@ -177,7 +177,7 @@ export function Planete() {
         <rect width="400" height="400" filter="url(#planete-bruit)" opacity="0.4" />
       </g>
       <circle cx="200" cy="200" r="190" fill="url(#planete-ombre)" />
-      <circle cx="200" cy="200" r="189" fill="none" stroke="#9dbbff" strokeOpacity="0.4" strokeWidth="2" />
+      <circle cx="200" cy="200" r="189" fill="none" stroke="#c2a8ff" strokeOpacity="0.4" strokeWidth="2" />
     </svg>
   );
 }

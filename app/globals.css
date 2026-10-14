@@ -110,7 +110,7 @@ body:has(.espace) footer {
   position: relative;
   isolation: isolate;
   background-color: var(--color-nuit);
-  background-image: radial-gradient(1400px 900px at 50% -8%, rgb(26 36 110 / 0.55), transparent 70%);
+  background-image: radial-gradient(1400px 900px at 50% -8%, rgb(52 24 120 / 0.55), transparent 70%);
   background-repeat: no-repeat;
 }
 

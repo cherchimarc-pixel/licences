@@ -57,7 +57,7 @@ const apports = [
   {
     titre: "Tous vos abonnements au même endroit",
     texte: "Chaque outil, chaque personne, chaque date de renouvellement dans un seul espace.",
-    style: "border-white/30 bg-bleu text-white shadow-[0_0_60px_rgba(37,56,245,0.55)] md:col-span-2",
+    style: "border-violet/60 bg-gradient-to-br from-[#3a1d96] to-[#150a45] text-white shadow-[0_0_60px_rgba(124,77,255,0.45)] md:col-span-2",
     texteStyle: "text-white txt-ciel",
     grand: true,
   },
@@ -78,7 +78,7 @@ const apports = [
   {
     titre: "Les échéances à venir",
     texte: "Les renouvellements du plus proche au plus lointain. Les rappels par e-mail arrivent bientôt.",
-    style: "border-white/30 bg-gradient-to-br from-violet to-bleu-fonce text-white shadow-[0_0_60px_rgba(124,77,255,0.5)] md:col-span-2",
+    style: "border-rose/60 bg-gradient-to-br from-[#6b1a73] to-[#1c0a3d] text-white shadow-[0_0_60px_rgba(255,46,147,0.35)] md:col-span-2",
     texteStyle: "text-white txt-ciel",
     grand: true,
   },
@@ -284,7 +284,7 @@ export default function Accueil() {
               <div className="mt-8 md:mt-0 md:min-w-80">
                 <Link
                   href="/commencer"
-                  className="flex min-h-16 w-full items-center justify-center bg-bleu px-6 text-xl font-extrabold text-white transition-colors active:bg-bleu-fonce"
+                  className="flex min-h-16 w-full items-center justify-center bg-gradient-to-r from-rose to-violet px-6 text-xl font-extrabold text-white transition-transform active:scale-[0.98]"
                 >
                   Commencer par l&apos;estimation gratuite
                 </Link>
