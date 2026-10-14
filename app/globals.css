@@ -102,7 +102,7 @@ body:has(.espace) {
 }
 
 body:has(.espace) footer {
-  color: rgb(255 255 255 / 0.75);
+  color: rgb(255 255 255 / 0.92);
   border-color: rgb(255 255 255 / 0.2);
 }
 
@@ -130,13 +130,13 @@ body:has(.espace) footer {
 
 /* Gaz interstellaires : bruit fractal découpé en bande diagonale, comme la Voie lactée. */
 .ciel-nuage-a {
-  opacity: 0.6;
+  opacity: 0.42;
   -webkit-mask-image: linear-gradient(118deg, transparent 4%, #000 36%, #000 60%, transparent 96%);
   mask-image: linear-gradient(118deg, transparent 4%, #000 36%, #000 60%, transparent 96%);
 }
 
 .ciel-nuage-b {
-  opacity: 0.28;
+  opacity: 0.2;
   -webkit-mask-image: linear-gradient(62deg, transparent 10%, #000 45%, transparent 90%);
   mask-image: linear-gradient(62deg, transparent 10%, #000 45%, transparent 90%);
 }
@@ -151,4 +151,9 @@ body:has(.espace) footer {
 /* Sur la page d'accueil, le surlignage est rose fluo au lieu de jaune. */
 .espace .surligne {
   background-image: linear-gradient(var(--color-rose), var(--color-rose));
+}
+
+/* Texte lisible devant le ciel : un halo sombre isole les lettres des étoiles et des nuages. */
+.txt-ciel {
+  text-shadow: 0 0 14px rgb(5 8 24 / 0.95), 0 1px 3px rgb(5 8 24 / 0.85);
 }

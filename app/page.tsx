@@ -58,7 +58,7 @@ const apports = [
     titre: "Tous vos abonnements au même endroit",
     texte: "Chaque outil, chaque personne, chaque date de renouvellement dans un seul espace.",
     style: "border-white/30 bg-bleu text-white shadow-[0_0_60px_rgba(37,56,245,0.55)] md:col-span-2",
-    texteStyle: "text-white/90",
+    texteStyle: "text-white txt-ciel",
     grand: true,
   },
   {
@@ -72,14 +72,14 @@ const apports = [
     titre: "Les doublons",
     texte: "Deux messageries ? Deux outils de design ? Vous voyez ce que ça coûte avant de renouveler.",
     style: "border-white/30 bg-white/10 text-white backdrop-blur-sm",
-    texteStyle: "text-white/80",
+    texteStyle: "text-white txt-ciel",
     grand: false,
   },
   {
     titre: "Les échéances à venir",
     texte: "Les renouvellements du plus proche au plus lointain. Les rappels par e-mail arrivent bientôt.",
     style: "border-white/30 bg-gradient-to-br from-violet to-bleu-fonce text-white shadow-[0_0_60px_rgba(124,77,255,0.5)] md:col-span-2",
-    texteStyle: "text-white/90",
+    texteStyle: "text-white txt-ciel",
     grand: true,
   },
 ];
@@ -112,7 +112,7 @@ export default function Accueil() {
                   que personne n&apos;utilise.
                 </span>
               </h1>
-              <p className="mt-7 max-w-md text-lg leading-relaxed text-white/90">
+              <p className="mt-7 max-w-md text-lg font-medium leading-relaxed text-white txt-ciel">
                 Licences retrouve les abonnements oubliés de votre entreprise,
                 repère les comptes inutilisés et les doublons, et chiffre ce que
                 chaque outil vous coûte. Pour les entreprises de 10 à 100
@@ -124,7 +124,7 @@ export default function Accueil() {
               >
                 Estimer ce que vous perdez
               </Link>
-              <p className="mt-4 text-sm text-white/80">
+              <p className="mt-4 text-base text-white txt-ciel">
                 Trois questions, deux minutes. Gratuit, sans carte bancaire.
               </p>
               <div className="mt-4">
@@ -136,7 +136,7 @@ export default function Accueil() {
               aria-labelledby="releve"
               className="mt-14 bg-white text-encre shadow-[0_0_90px_rgba(124,77,255,0.55)] md:mt-0 md:rotate-[1.5deg]"
             >
-              <h2 id="releve" className="px-4 pb-3 pt-4 text-sm font-bold text-gris">
+              <h2 id="releve" className="px-4 pb-3 pt-4 text-base font-bold text-gris">
                 Exemple : relevé d&apos;une entreprise de 30 personnes
               </h2>
               <ul className="border-t-2 border-encre">
@@ -150,7 +150,7 @@ export default function Accueil() {
                   >
                     <span>
                       <span className="block text-lg font-bold leading-snug">{l.nom}</span>
-                      <span className="block text-sm text-gris">{l.detail}</span>
+                      <span className="block text-base text-gris">{l.detail}</span>
                     </span>
                     <span className="whitespace-nowrap text-lg font-bold tabular-nums">
                       {l.montant}
@@ -161,7 +161,7 @@ export default function Accueil() {
               <div className="flex items-end justify-between gap-4 bg-encre px-4 py-5 text-white">
                 <span className="text-base font-bold leading-snug">
                   Payé pour rien
-                  <span className="block text-sm font-normal text-white/80">par an</span>
+                  <span className="block text-base font-normal text-white">par an</span>
                 </span>
                 <span className="font-titre text-5xl font-extrabold leading-none tabular-nums text-rose">
                   1&nbsp;840&nbsp;€
@@ -169,7 +169,7 @@ export default function Accueil() {
               </div>
             </section>
           </div>
-          <p className="mt-6 text-sm text-white/80 md:text-right">
+          <p className="mt-6 text-base text-white txt-ciel md:text-right">
             Exemple illustratif, pas un client réel.
           </p>
         </div>
@@ -222,12 +222,12 @@ export default function Accueil() {
                   948&nbsp;€
                 </p>
                 <p className="mt-4 text-lg font-bold leading-snug">par an</p>
-                <p className="mt-1 text-base leading-relaxed text-white/85">
+                <p className="mt-1 text-base leading-relaxed text-white txt-ciel">
                   Licences : 79&nbsp;€ par mois, pour toute l&apos;entreprise.
                 </p>
               </div>
             </div>
-            <p className="mt-5 text-sm text-white/75">
+            <p className="mt-5 text-base text-white txt-ciel">
               Calcul d&apos;exemple. Vos prix peuvent être différents.
             </p>
           </div>
@@ -244,7 +244,7 @@ export default function Accueil() {
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-2xl font-bold leading-snug">{e.titre}</h3>
-                <p className="mt-2 text-lg leading-relaxed text-white/80">{e.texte}</p>
+                <p className="mt-2 text-lg leading-relaxed text-white txt-ciel">{e.texte}</p>
               </li>
             ))}
           </ol>
