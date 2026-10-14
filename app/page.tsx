@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Demo from "@/components/demo";
+import { Ciel, Planete } from "@/components/ciel";
 import Logo from "@/components/logo";
 
 const lignes = [
@@ -9,19 +10,32 @@ const lignes = [
   { nom: "Google Workspace", detail: "Messagerie · utilisé par 28 personnes", montant: "1 440 €", inutile: false, delai: "0s" },
 ];
 
-const outilsDefilants = [
-  "Slack",
-  "Zoom",
-  "Canva",
-  "Notion",
-  "Asana",
-  "Dropbox",
-  "DocuSign",
-  "HubSpot",
-  "Mailchimp",
-  "Pennylane",
-  "Microsoft 365",
-  "Google Workspace",
+// Pictogrammes génériques par fonction (dessinés pour Licences, pas des logos de marques).
+const traits = {
+  messagerie: "M4 5h16v11H10l-6 4z",
+  visio: "M3 6h12v12H3z M15 10l6-4v12l-6-4z",
+  design: "M5 19l1-4L16 5l3 3L9 18z M14 7l3 3",
+  projet: "M5 5h14v14H5z M8 12l3 3 5-6",
+  stockage: "M3 6h7l2 2h9v11H3z",
+  signature: "M4 20h16 M6 16l9-9 3 3-9 9H6z",
+  clients: "M12 11a4 4 0 100-8 4 4 0 000 8z M4 21c0-4 4-6 8-6s8 2 8 6",
+  compta: "M5 4h14v16H5z M8 8h8 M8 12h2 M12 12h2 M8 16h2 M12 16h2",
+  marketing: "M3 10v4h4l7 4V6L7 10z M17 9a4 4 0 010 6",
+} as const;
+
+const outilsDefilants: { nom: string; icone: keyof typeof traits }[] = [
+  { nom: "Slack", icone: "messagerie" },
+  { nom: "Zoom", icone: "visio" },
+  { nom: "Canva", icone: "design" },
+  { nom: "Notion", icone: "projet" },
+  { nom: "Asana", icone: "projet" },
+  { nom: "Dropbox", icone: "stockage" },
+  { nom: "DocuSign", icone: "signature" },
+  { nom: "HubSpot", icone: "clients" },
+  { nom: "Mailchimp", icone: "marketing" },
+  { nom: "Pennylane", icone: "compta" },
+  { nom: "Microsoft 365", icone: "messagerie" },
+  { nom: "Google Workspace", icone: "messagerie" },
 ];
 
 const etapes = [
@@ -73,21 +87,18 @@ const apports = [
 export default function Accueil() {
   return (
     <div className="espace overflow-x-clip text-white">
-      <div aria-hidden="true" className="etoiles" />
+      <Ciel />
 
       <header className="relative">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-24 h-64 w-64 md:-right-16 md:top-12 md:h-[26rem] md:w-[26rem]">
-          <div className="flotte planete relative h-full w-full">
-            <span className="anneau" />
-          </div>
+        <div aria-hidden="true" className="pointer-events-none absolute -right-28 top-28 h-72 w-72 md:-right-20 md:top-10 md:h-[28rem] md:w-[28rem]">
+          <Planete />
         </div>
-        <div aria-hidden="true" className="lune pointer-events-none absolute left-[6%] top-[52%] hidden h-6 w-6 md:block" />
         <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-6 sm:px-8 md:pb-24">
           <div className="flex items-center justify-between gap-4">
             <Logo clair />
             <Link
               href="/app"
-              className="flex min-h-12 items-center border-2 border-white px-4 text-base font-bold transition-colors active:bg-white/15"
+              className="flex min-h-12 items-center bg-rose px-5 text-base font-extrabold text-nuit shadow-[0_0_28px_rgba(255,46,147,0.65)] transition-transform active:scale-95"
             >
               Mon espace
             </Link>
@@ -173,10 +184,14 @@ export default function Accueil() {
           <div className="defile">
             {[0, 1].map((copie) => (
               <ul key={copie} className="flex shrink-0 items-center">
-                {outilsDefilants.map((nom) => (
-                  <li key={nom} className="flex items-center whitespace-nowrap font-titre text-2xl font-extrabold">
-                    <span className="px-6">{nom}</span>
-                    <span className="h-3 w-3 shrink-0 bg-encre" />
+                {outilsDefilants.map((outil) => (
+                  <li key={outil.nom} className="flex items-center whitespace-nowrap font-titre text-2xl font-extrabold">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-encre text-surligneur">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                        <path d={traits[outil.icone]} />
+                      </svg>
+                    </span>
+                    <span className="pl-3 pr-8">{outil.nom}</span>
                   </li>
                 ))}
               </ul>
@@ -187,9 +202,6 @@ export default function Accueil() {
 
       <main>
         <section aria-labelledby="calcul" className="relative text-white">
-          <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-10 h-48 w-48 md:-left-10 md:h-72 md:w-72">
-            <div className="flotte planete-violette h-full w-full" />
-          </div>
           <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
             <h2 id="calcul" className="max-w-3xl font-titre text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
               Quelques comptes oubliés coûtent plus cher que Licences.
