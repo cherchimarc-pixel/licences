@@ -43,38 +43,46 @@ const apports = [
   {
     titre: "Tous vos abonnements au même endroit",
     texte: "Chaque outil, chaque personne, chaque date de renouvellement dans un seul espace.",
-    style: "bg-bleu text-white shadow-[6px_6px_0_0_#0b1437] md:col-span-2",
+    style: "border-white/30 bg-bleu text-white shadow-[0_0_60px_rgba(37,56,245,0.55)] md:col-span-2",
     texteStyle: "text-white/90",
     grand: true,
   },
   {
     titre: "Les comptes oubliés",
     texte: "La licence d'un salarié parti ou d'un outil que personne n'ouvre ressort d'elle-même.",
-    style: "bg-surligneur text-encre shadow-[6px_6px_0_0_#0b1437]",
+    style: "border-surligneur bg-surligneur text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)]",
     texteStyle: "text-encre/80",
     grand: false,
   },
   {
     titre: "Les doublons",
     texte: "Deux messageries ? Deux outils de design ? Vous voyez ce que ça coûte avant de renouveler.",
-    style: "bg-white text-encre shadow-[6px_6px_0_0_#2538f5]",
-    texteStyle: "text-gris",
+    style: "border-white/30 bg-white/10 text-white backdrop-blur-sm",
+    texteStyle: "text-white/80",
     grand: false,
   },
   {
     titre: "Les échéances à venir",
     texte: "Les renouvellements du plus proche au plus lointain. Les rappels par e-mail arrivent bientôt.",
-    style: "bg-encre text-white shadow-[6px_6px_0_0_#ffe14d] md:col-span-2",
-    texteStyle: "text-white/85",
+    style: "border-white/30 bg-gradient-to-br from-violet to-bleu-fonce text-white shadow-[0_0_60px_rgba(124,77,255,0.5)] md:col-span-2",
+    texteStyle: "text-white/90",
     grand: true,
   },
 ];
 
 export default function Accueil() {
   return (
-    <div className="overflow-x-clip">
-      <header className="bg-bleu text-white">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-6 sm:px-8 md:pb-24">
+    <div className="espace overflow-x-clip text-white">
+      <div aria-hidden="true" className="etoiles" />
+
+      <header className="relative">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-24 h-64 w-64 md:-right-16 md:top-12 md:h-[26rem] md:w-[26rem]">
+          <div className="flotte planete relative h-full w-full">
+            <span className="anneau" />
+          </div>
+        </div>
+        <div aria-hidden="true" className="lune pointer-events-none absolute left-[6%] top-[52%] hidden h-6 w-6 md:block" />
+        <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-6 sm:px-8 md:pb-24">
           <div className="flex items-center justify-between gap-4">
             <Logo clair />
             <Link
@@ -101,7 +109,7 @@ export default function Accueil() {
               </p>
               <Link
                 href="/commencer"
-                className="mt-9 flex min-h-16 w-full items-center justify-center bg-surligneur px-6 text-xl font-extrabold text-encre shadow-[6px_6px_0_0_#0b1437] transition-transform active:translate-x-1 active:translate-y-1 active:shadow-none sm:w-auto sm:min-w-80"
+                className="mt-9 flex min-h-16 w-full items-center justify-center bg-surligneur px-6 text-xl font-extrabold text-encre shadow-[6px_6px_0_0_#7c4dff] transition-transform active:translate-x-1 active:translate-y-1 active:shadow-none sm:w-auto sm:min-w-80"
               >
                 Estimer ce que vous perdez
               </Link>
@@ -115,7 +123,7 @@ export default function Accueil() {
 
             <section
               aria-labelledby="releve"
-              className="mt-14 bg-white text-encre shadow-[10px_10px_0_0_#0b1437] md:mt-0 md:rotate-[1.5deg]"
+              className="mt-14 bg-white text-encre shadow-[0_0_90px_rgba(124,77,255,0.55)] md:mt-0 md:rotate-[1.5deg]"
             >
               <h2 id="releve" className="px-4 pb-3 pt-4 text-sm font-bold text-gris">
                 Exemple : relevé d&apos;une entreprise de 30 personnes
@@ -156,7 +164,7 @@ export default function Accueil() {
         </div>
       </header>
 
-      <div className="border-y-2 border-encre bg-surligneur py-4 text-encre">
+      <div className="relative bg-surligneur py-4 text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)]">
         <p className="sr-only">
           Des abonnements comme Slack, Zoom, Canva, Notion ou Google Workspace
           sont souvent payés sans être utilisés.
@@ -178,14 +186,17 @@ export default function Accueil() {
       </div>
 
       <main>
-        <section aria-labelledby="calcul" className="bg-encre text-white">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
+        <section aria-labelledby="calcul" className="relative text-white">
+          <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-10 h-48 w-48 md:-left-10 md:h-72 md:w-72">
+            <div className="flotte planete-violette h-full w-full" />
+          </div>
+          <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
             <h2 id="calcul" className="max-w-3xl font-titre text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
               Quelques comptes oubliés coûtent plus cher que Licences.
             </h2>
 
             <div className="mt-12 grid gap-5 md:grid-cols-2">
-              <div className="bg-surligneur p-6 text-encre sm:p-8">
+              <div className="bg-surligneur p-6 text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)] sm:p-8">
                 <p className="font-titre text-7xl font-extrabold leading-none tracking-tighter tabular-nums sm:text-8xl">
                   960&nbsp;€
                 </p>
@@ -194,7 +205,7 @@ export default function Accueil() {
                   Dix comptes oubliés à 8&nbsp;€ par mois.
                 </p>
               </div>
-              <div className="border-2 border-white p-6 sm:p-8">
+              <div className="border-2 border-white/60 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
                 <p className="font-titre text-7xl font-extrabold leading-none tracking-tighter tabular-nums sm:text-8xl">
                   948&nbsp;€
                 </p>
@@ -216,18 +227,18 @@ export default function Accueil() {
           </h2>
           <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
             {etapes.map((e, i) => (
-              <li key={e.titre} className="border-t-8 border-bleu pt-5">
-                <span aria-hidden="true" className="font-titre text-8xl font-extrabold leading-none tracking-tighter text-bleu">
+              <li key={e.titre} className="border-t-8 border-surligneur pt-5">
+                <span aria-hidden="true" className="font-titre text-8xl font-extrabold leading-none tracking-tighter text-surligneur [text-shadow:0_0_40px_rgba(255,225,77,0.4)]">
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-2xl font-bold leading-snug">{e.titre}</h3>
-                <p className="mt-2 text-lg leading-relaxed text-gris">{e.texte}</p>
+                <p className="mt-2 text-lg leading-relaxed text-white/80">{e.texte}</p>
               </li>
             ))}
           </ol>
         </section>
 
-        <section aria-labelledby="apports" className="border-y-2 border-encre bg-papier">
+        <section aria-labelledby="apports">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
             <h2 id="apports" className="max-w-2xl font-titre text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
               Ce que Licences vous montre.
@@ -245,9 +256,9 @@ export default function Accueil() {
           </div>
         </section>
 
-        <section aria-labelledby="prix" className="bg-bleu">
+        <section aria-labelledby="prix">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
-            <div className="border-2 border-encre bg-white p-6 shadow-[10px_10px_0_0_#ffe14d] sm:p-10 md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-12">
+            <div className="border-2 border-encre bg-white p-6 text-encre shadow-[10px_10px_0_0_#ffe14d,0_0_100px_rgba(124,77,255,0.55)] sm:p-10 md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-12">
               <div>
                 <h2 id="prix" className="font-titre text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
                   79&nbsp;€ par mois, pour toute l&apos;entreprise.

@@ -10,6 +10,8 @@
   --color-papier: #f3f5fb;
   --color-trait: #d6dcec;
   --color-gris: #4f5a75;
+  --color-nuit: #050818;
+  --color-violet: #7c4dff;
 
   --font-titre: var(--font-bricolage), "Helvetica Neue", Arial, sans-serif;
   --font-texte: var(--font-dm-sans), system-ui, sans-serif;
@@ -88,5 +90,131 @@ button:focus-visible {
   .apparait {
     animation: none;
     opacity: 1;
+  }
+}
+
+/* ===== Univers spatial de la page d'accueil ===== */
+html:has(.espace),
+body:has(.espace) {
+  background: var(--color-nuit);
+  color: #fff;
+}
+
+body:has(.espace) footer {
+  color: rgb(255 255 255 / 0.75);
+  border-color: rgb(255 255 255 / 0.2);
+}
+
+/* Fond : nuit profonde et nébuleuses réparties le long de la page. */
+.espace {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-nuit);
+  background-image:
+    radial-gradient(700px 520px at 88% 140px, rgb(124 77 255 / 0.5), transparent 70%),
+    radial-gradient(800px 600px at 0% 1000px, rgb(37 56 245 / 0.5), transparent 70%),
+    radial-gradient(700px 520px at 100% 2000px, rgb(124 77 255 / 0.38), transparent 70%),
+    radial-gradient(800px 600px at 0% 3000px, rgb(37 56 245 / 0.38), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+/* Étoiles : trois couches de points de tailles différentes, la dernière scintille. */
+.etoiles {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 90px 80px, #fff 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 170px 25px, #ffe14d 50%, transparent 100%),
+    radial-gradient(1px 1px at 45px 150px, #fff 50%, transparent 100%),
+    radial-gradient(2px 2px at 140px 170px, #bcd0ff 50%, transparent 100%),
+    radial-gradient(1px 1px at 210px 110px, #fff 50%, transparent 100%);
+  background-size: 240px 200px;
+}
+
+.etoiles::before,
+.etoiles::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.etoiles::before {
+  background-image:
+    radial-gradient(1px 1px at 60px 60px, #fff 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 250px 190px, #cfd9ff 50%, transparent 100%),
+    radial-gradient(1px 1px at 150px 280px, #fff 50%, transparent 100%);
+  background-size: 340px 330px;
+  opacity: 0.8;
+}
+
+.etoiles::after {
+  background-image:
+    radial-gradient(2px 2px at 100px 120px, #fff 50%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 330px 40px, #ffe14d 50%, transparent 100%),
+    radial-gradient(2px 2px at 200px 300px, #fff 50%, transparent 100%);
+  background-size: 460px 380px;
+  animation: scintille 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes scintille {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Planètes et lune : des sphères éclairées en haut à gauche. */
+.planete {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 28%, #9db0ff 0%, #2538f5 38%, #101a8a 68%, #050818 100%);
+  box-shadow: 0 0 90px rgb(37 56 245 / 0.55);
+}
+
+.planete-violette {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 28%, #d1b8ff 0%, #7c4dff 40%, #2b1a8a 72%, #050818 100%);
+  box-shadow: 0 0 80px rgb(124 77 255 / 0.5);
+}
+
+.lune {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #fff7c2, #ffe14d 55%, #b89a00 100%);
+  box-shadow: 0 0 40px rgb(255 225 77 / 0.45);
+}
+
+.anneau {
+  position: absolute;
+  left: -38%;
+  right: -38%;
+  top: 50%;
+  height: 34%;
+  margin-top: -17%;
+  border-radius: 9999px;
+  border: 7px solid rgb(255 225 77 / 0.55);
+  transform: rotate(-18deg);
+}
+
+.flotte {
+  animation: flotter 14s ease-in-out infinite alternate;
+}
+
+@keyframes flotter {
+  from {
+    transform: translateY(-8px);
+  }
+  to {
+    transform: translateY(14px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .etoiles::after,
+  .flotte {
+    animation: none;
   }
 }
