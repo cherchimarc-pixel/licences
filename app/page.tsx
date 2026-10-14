@@ -64,8 +64,8 @@ const apports = [
   {
     titre: "Les comptes oubliés",
     texte: "La licence d'un salarié parti ou d'un outil que personne n'ouvre ressort d'elle-même.",
-    style: "border-surligneur bg-surligneur text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)]",
-    texteStyle: "text-encre/80",
+    style: "border-rose bg-rose text-nuit shadow-[0_0_60px_rgba(255,46,147,0.45)]",
+    texteStyle: "text-nuit/80",
     grand: false,
   },
   {
@@ -120,7 +120,7 @@ export default function Accueil() {
               </p>
               <Link
                 href="/commencer"
-                className="mt-9 flex min-h-16 w-full items-center justify-center bg-surligneur px-6 text-xl font-extrabold text-encre shadow-[6px_6px_0_0_#7c4dff] transition-transform active:translate-x-1 active:translate-y-1 active:shadow-none sm:w-auto sm:min-w-80"
+                className="mt-9 flex min-h-16 w-full items-center justify-center bg-gradient-to-r from-rose to-violet px-6 text-xl font-extrabold text-white shadow-[0_0_40px_rgba(255,46,147,0.5)] transition-transform active:translate-x-1 active:translate-y-1 active:shadow-none sm:w-auto sm:min-w-80"
               >
                 Estimer ce que vous perdez
               </Link>
@@ -163,7 +163,7 @@ export default function Accueil() {
                   Payé pour rien
                   <span className="block text-sm font-normal text-white/80">par an</span>
                 </span>
-                <span className="font-titre text-5xl font-extrabold leading-none tabular-nums text-surligneur">
+                <span className="font-titre text-5xl font-extrabold leading-none tabular-nums text-rose">
                   1&nbsp;840&nbsp;€
                 </span>
               </div>
@@ -175,7 +175,7 @@ export default function Accueil() {
         </div>
       </header>
 
-      <div className="relative bg-surligneur py-4 text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)]">
+      <div className="relative border-y border-white/15 bg-white/5 py-4 text-white backdrop-blur-sm">
         <p className="sr-only">
           Des abonnements comme Slack, Zoom, Canva, Notion ou Google Workspace
           sont souvent payés sans être utilisés.
@@ -186,7 +186,7 @@ export default function Accueil() {
               <ul key={copie} className="flex shrink-0 items-center">
                 {outilsDefilants.map((outil) => (
                   <li key={outil.nom} className="flex items-center whitespace-nowrap font-titre text-2xl font-extrabold">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-encre text-surligneur">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-rose text-nuit">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true" focusable="false">
                         <path d={traits[outil.icone]} />
                       </svg>
@@ -208,7 +208,7 @@ export default function Accueil() {
             </h2>
 
             <div className="mt-12 grid gap-5 md:grid-cols-2">
-              <div className="bg-surligneur p-6 text-encre shadow-[0_0_60px_rgba(255,225,77,0.35)] sm:p-8">
+              <div className="bg-rose p-6 text-nuit shadow-[0_0_60px_rgba(255,46,147,0.45)] sm:p-8">
                 <p className="font-titre text-7xl font-extrabold leading-none tracking-tighter tabular-nums sm:text-8xl">
                   960&nbsp;€
                 </p>
@@ -239,8 +239,8 @@ export default function Accueil() {
           </h2>
           <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
             {etapes.map((e, i) => (
-              <li key={e.titre} className="border-t-8 border-surligneur pt-5">
-                <span aria-hidden="true" className="font-titre text-8xl font-extrabold leading-none tracking-tighter text-surligneur [text-shadow:0_0_40px_rgba(255,225,77,0.4)]">
+              <li key={e.titre} className="border-t-8 border-rose pt-5">
+                <span aria-hidden="true" className="font-titre text-8xl font-extrabold leading-none tracking-tighter text-rose [text-shadow:0_0_40px_rgba(255,46,147,0.5)]">
                   {i + 1}
                 </span>
                 <h3 className="mt-4 text-2xl font-bold leading-snug">{e.titre}</h3>
@@ -270,7 +270,7 @@ export default function Accueil() {
 
         <section aria-labelledby="prix">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-24">
-            <div className="border-2 border-encre bg-white p-6 text-encre shadow-[10px_10px_0_0_#ffe14d,0_0_100px_rgba(124,77,255,0.55)] sm:p-10 md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-12">
+            <div className="border-2 border-encre bg-white p-6 text-encre shadow-[10px_10px_0_0_#ff2e93,0_0_100px_rgba(124,77,255,0.55)] sm:p-10 md:grid md:grid-cols-[1fr_auto] md:items-center md:gap-12">
               <div>
                 <h2 id="prix" className="font-titre text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
                   79&nbsp;€ par mois, pour toute l&apos;entreprise.

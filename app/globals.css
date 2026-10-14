@@ -147,3 +147,8 @@ body:has(.espace) footer {
   left: 0;
   width: 100%;
 }
+
+/* Sur la page d'accueil, le surlignage est rose fluo au lieu de jaune. */
+.espace .surligne {
+  background-image: linear-gradient(var(--color-rose), var(--color-rose));
+}
